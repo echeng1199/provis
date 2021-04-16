@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Search{% endblock %}
+{% block content %}
+
+<div>
+  <nav id = "nav2">
+    <ul>
+      <li><a href="{{ url_for('search.search') }}">Protein by identifier</a></li>
+      <!--
+      <li><a href="{{ url_for('search.search') }}">Protein by sequence</a></li>
+      <li><a href="{{ url_for('search.search') }}">Multiple proteins</a></li>
+      <li><a href="{{ url_for('search.search') }}">Multiple sequences</a></li>
+      <li><a href="{{ url_for('search.search') }}">Examples</a></li>
+      <li><a href="{{ url_for('search.search') }}">Random entry</a></li>
+      <li><a href="{{ url_for('search.search') }}">All link to same page</a></li> -->
+    </ul>
+  </nav>
+
+</div>
+    {% endblock %}

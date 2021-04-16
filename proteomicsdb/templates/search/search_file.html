@@ -1,0 +1,63 @@
+<!-- show preview of file from post -->
+
+{% extends 'base.html' %}
+{% block title %} Search in {{ post['title'] }} {% endblock %}
+
+{% block content %}
+
+<div class="about" name="post_info">
+    <h2>Title: {{ post['title'] }} </h2>
+    <b>Submitters:</b> {{ post['username'] }} <br>
+    <b>Made public:</b> {{ post['created'].strftime('%Y-%m-%d') }} <br>
+    <b>Description:</b> {{ post['description'] }} <br>
+    <b>File:</b> {{ post['file_name'] }} <br>
+
+    <form action="{{ url_for('posts.download')}}" method="post">
+          <input type = "hidden" name = "key" value ={{post['file_name']}}>
+          <input type="submit" value="Download File">
+    </form>
+</div>
+
+
+<div name = "search_query">
+    <h3>You searched this post for:
+        {% for protein in proteins %}
+            {{ protein }}
+        {% endfor %}
+    </h3>
+</div>
+
+<div name = "results">
+
+    {% if num_matches > 0 %}
+    <h2>Here are the results: </h2>
+
+        {% for match in all_matches %}
+            Gene Symbol: {{ match['gene'] }} <br>
+            Species: {{ match['species'] }} <br>
+            Description: {{ match['description'] }} <br>
+            Accession Number: {{ match['accession'] }} <br>
+
+            Abundance Values:
+            {% for key, val in match.items() %}
+                {% if key.startswith('abun') %}
+                    {{ val }}
+                {% endif %}
+            {% endfor %} <br>
+        <br>
+        {% endfor %}
+
+    <div name = "plot">
+        <a class="action" href="{{ url_for('analysis.display_graph_post') }}">Display plot</a>
+    </div>
+
+    {% else %}
+
+    <h2>One or more of your proteins does not exist. Please search again. </h2>
+
+    {% endif %}
+
+</div>
+
+
+{% endblock %}

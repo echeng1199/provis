@@ -1,0 +1,57 @@
+{% extends 'search/search_base.html' %}
+{% block title %}Search result "{{ query }}"{% endblock %}
+{% block content %}
+
+  {{ super() }}
+
+<script language="JavaScript">
+function toggle(source) {
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i] != source)
+            checkboxes[i].checked = source.checked;
+    }
+}
+</script>
+
+
+<div class = "text">
+  <h1> Search result for "{{ query }}" </h1>
+  <hr>
+  <h2> Number of entries that match your query: {{ results|length }} </h2>
+
+
+    <form action="{{ url_for('analysis.display_graph_index') }}" method="post">
+
+        <input type="checkbox" onclick="toggle(this);" />Check all?<br />
+
+
+      {% for result in results %}
+
+        <!-- fix styling at some point -->
+            <label for="result">
+              <input type="checkbox" id="result" name="result" value="{{ result }}"
+                     style="margin-left: -165px">
+              <h3 style = "margin-top: -45px">
+                  <a class="action" href="{{ url_for('posts.view_post', id=result['post_id']) }}">
+                    {{ get_post_func(result['post_id'])['title'] }}</a>
+              </h3>
+            </label>
+
+          Condition: {{ result['condition'] }} <br>
+          Gene Symbol: {{ result['gene'] }} <br>
+          Species: {{ result['species'] }} <br>
+          Description: {{ result['description'] }} <br>
+          Accession Number: {{ result['accession'] }} <br>
+      <br>
+
+      {% endfor %}
+      <br><br>
+
+      <input type="submit" value="Submit">
+
+    </form>
+
+</div>
+{% endblock %}
+

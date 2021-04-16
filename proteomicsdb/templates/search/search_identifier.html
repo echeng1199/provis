@@ -1,0 +1,57 @@
+{% extends 'search/search_base.html' %}
+{% block title %}Search protein by identifier {% endblock %}
+{% block content %}
+
+  {{ super() }}
+
+    <script src="{{url_for('static', filename='search_display_options.js')}}"></script>
+
+
+<div class = "text">
+  <h1> Search protein by identifier </h1>
+  <hr>
+
+    <div>
+    <form action = "{{ url_for("search.search_index") }}" method="POST">
+
+      <div>
+        <label for="search_query">Search Query</label><br>
+          <select onchange='checkIfYes()' id="search_query" name="search_query">
+            <option id="blank" value="blank"></option>
+            <option id="select_accession" value="select_accession">Accession Number</option>
+            <option id="select_gene" value="select_gene">Gene Symbol</option>
+            <option id="select_desc" value="select_desc">Protein Description</option>
+          </select>
+      </div>
+
+      <div id="search_accession" name="search_accession" style="display: none">
+        <label for="accession">Accession Number </label><br>
+        <input name="accession" id="accession" value="{{ request.form['accession'] }}" placeholder = "P06703, Q9UQN3, Q9UEW8, etc.">
+      </div>
+
+      <div id="search_gene" name="search_gene" style="display: none">
+        <label for="gene">Gene Symbol </label><br>
+        <input type="text" name="gene" id="gene" value="{{ request.form['gene'] }}" placeholder = "TTC1, ZFAND6, S100A6, etc.">
+      </div>
+
+      <div id="search_desc" name="search_desc" style="display: none">
+        <label for="desc">Protein Description </label><br>
+        <input type="text" name="desc" id="desc" value="{{ request.form['desc'] }}" placeholder = "ATPase, ribosomal protein, reductase, etc.">
+      </div>
+
+
+      <div>
+        <a class="advanced" href="{{ url_for('search.search') }}">Advanced parameters</a>
+      </div>
+      <br>
+
+      <input type="submit" value="Search">
+
+    </form>
+
+  </div>
+
+
+
+</div>
+{% endblock %}

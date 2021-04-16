@@ -1,0 +1,4 @@
+include proteomicsdb/schema.sql
+graft proteomicsdb/static
+graft proteomicsdb/templates
+global-exclude *.pyc

@@ -1,0 +1,114 @@
+<!-- test of Chart JS line chart -->
+
+{% extends 'base.html' %}
+{% block title %}
+    Graph for
+    {% for protein in legend %}
+        {{ protein }} |
+    {% endfor %}
+{% endblock %}
+
+{% block content %}
+
+<head>
+    <title>Line Chart</title>
+    <script src="https://www.chartjs.org/dist/2.9.4/Chart.min.js"></script>
+
+    <!-- this script contains information about chart color and display -->
+    <script src="{{url_for('static', filename='line_chart.js')}}"></script>
+</head>
+
+<body>
+  <div style="width:75%; margin: auto">
+    <canvas id="canvas"></canvas>
+  </div>
+  <br>
+  <br>
+
+
+
+  <script>
+
+
+    var config = {
+
+      // make line-plot
+      type: 'line',
+
+      // our data to plot (y-axis)
+      data: {
+        // when initially displayed, only two datasets shown
+        labels: ["0", "3", "6"],
+        datasets: []
+
+      },
+
+      // how the graph will look like
+      options: {
+        responsive: true,
+        title: {
+          display: true,
+          text: 'Protein abundance'
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false,
+        },
+        hover: {
+          mode: 'nearest',
+          intersect: true
+        },
+        scales: {
+          xAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: 'Time (hours post-infection)'
+            }
+          }],
+          yAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: 'Value'
+            }
+          }]
+        }
+      }
+    };
+
+
+    // display chart
+    window.onload = function() {
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.myLine = getNewChart(ctx, config);
+
+        var legend = {{ legend | tojson }};
+        var data = {{ data | tojson }};
+
+        var i = 0;
+        while (i < legend.length) {
+            add_data(legend, data, i)
+            i++
+        }
+        };
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+
+
+{% endblock %}

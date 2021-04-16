@@ -1,0 +1,49 @@
+<!-- display all posts and related information -->
+
+{% extends 'base.html' %}
+{% block title %}Database{% endblock %}
+
+{% block content %}
+
+<div>
+  <h1> Database </h1>
+
+  {% for post in posts %}
+    <article class="post">
+      <header>
+        <div>
+          <h1><a class="action" href="{{ url_for('posts.view_post', id=post['id']) }}">{{ post['title'] }}</a></h1>
+          <div class="about">
+            <b>Submitters:</b> {{ post['username'] }}
+            <br>
+            <b>Made public:</b> {{ post['created'].strftime('%Y-%m-%d') }}
+          </div>
+        </div>
+
+        {% if g.user['id'] == post['author_id'] %}
+          <a class="action" href="{{ url_for('posts.update', id=post['id']) }}">Edit</a>
+        {% endif %}
+      </header>
+
+      <p class="body">
+        <b>Project description: </b> {{ post['description'] }}
+        <b>File uploaded: </b> {{ post['file_name'] }}
+        <b>Species:</b> {{ post['species'] }}
+        <b>Condition(s):</b> {{ post['condition'] }}
+        <b>Time points:</b> {{ post['timept'] }}
+      </p>
+
+
+      <form action="{{ url_for('posts.download')}}" method="post">
+          <input type = "hidden" name = "key" value ={{post['file_name']}}>
+          <input type="submit" value="Download File">
+      </form>
+
+    </article>
+
+    {% if not loop.last %}
+    {% endif %}
+
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+<!-- show preview of file from post -->
+
+{% extends 'base.html' %}
+{% block title %} {{ post['title'] }} {% endblock %}
+
+{% block content %}
+
+<div class="about" name="post_info">
+    <h2>Title: {{ post['title'] }} </h2>
+    <b>Submitters:</b> {{ post['username'] }} <br>
+    <b>Made public:</b> {{ post['created'].strftime('%Y-%m-%d') }} <br>
+    <b>Description:</b> {{ post['description'] }} <br>
+    <b>File:</b> {{ post['file_name'] }} <br>
+    <b>Species:</b> {{ post['species'] }} <br>
+    <b>Condition(s):</b> {{ post['condition'] }} <br>
+    <b>Time points:</b> {{ post['timept'] }} <br>
+
+    <form action="{{ url_for('posts.download')}}" method="post">
+          <input type = "hidden" name = "key" value ={{post['file_name']}}>
+          <input type="submit" value="Download File">
+    </form>
+</div>
+
+
+<script src="{{url_for('static', filename='search_display_options.js')}}"></script>
+
+<div name="search_file">
+  <h3> Search in file for protein by its identifier </h3>
+
+    <div>
+        <form action = "{{ url_for('search.search_in_file', id=post['id']) }}" method="POST">
+
+          <div name="identifier_list">
+            <label for="search_query">Search Query</label><br>
+              <select onchange='checkIfYes()' id="search_query" name="search_query">
+                <option id="blank" value="blank"></option>
+                <option id="select_accession" value="select_accession">Accession Number</option>
+                <option id="select_gene" value="select_gene">Gene Symbol</option>
+              </select>
+          </div>
+
+          <div id="search_accession" name="search_accession" style="display: none">
+            <label for="accession">Accession Number </label><br>
+            <input name="accession" id="accession" value="{{ request.form['accession'] }}" placeholder = "P06703, Q9UQN3, Q9UEW8, etc.">
+          </div>
+
+          <div id="search_gene" name="search_gene" style="display: none">
+            <label for="gene">Gene Symbol </label><br>
+            <input type="text" name="gene" id="gene" value="{{ request.form['gene'] }}" placeholder = "TTC1, ZFAND6, S100A6, etc.">
+          </div>
+
+          <br>
+
+          <input type="submit" value="Search">
+
+        </form>
+
+    </div>
+
+</div>
+<br>
+
+{% endblock %}

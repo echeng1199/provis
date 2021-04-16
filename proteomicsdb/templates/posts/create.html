@@ -1,0 +1,33 @@
+<!-- create post page -->
+
+{% extends 'base.html' %}
+
+{% block title %}Upload File{% endblock %}
+
+{% block content %}
+  <h1> Upload File</h1>
+  <form method="post" enctype="multipart/form-data">
+
+    <label for="title">Title</label>
+    <input name="title" id="title" value="{{ request.form['title'] }}" required>
+
+    <label for="description">Description</label>
+    <textarea name="description" id="description" required>{{ request.form['description'] }}</textarea>
+
+    <label for="file">File</label>
+    <input type="file" name="file" id="file" value="{{ request.files['file'] }}" required>
+
+    <label for="species">Species</label>
+    <input name="species" id="species" value="{{ request.form['species'] }}">
+
+    <label for="condition">Condition(s) (e.g., infection type)</label>
+    <input name="condition" id="condition" value="{{ request.form['condition'] }}">
+
+    <label for="timept">Time points</label>
+    <input name="timept" id="timept" value="{{ request.form['timept'] }}">
+
+
+
+    <input type="submit" value="Save">
+  </form>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'help/help_base.html' %}
+
+{% block title %}Getting started{% endblock %}
+
+{% block content %}
+
+    {{ super() }}
+
+<div class = "text">
+
+    <h1>Starting Point </h1>
+<hr>
+
+<p>
+    To specify your desired starting point of the analysis you have to use the input form at the STRING start page.
+
+    <li> Protein by name </li>
+    <li> Protein by sequence </li>
+    <li> Multiple proteins </li>
+    <li> Multiple sequences </li>
+    <li> Organisms </li>
+    <li> Protein families (COGs) </li>
+    <li> Examples </li>
+    <li> Random entry </li>
+
+</p>
+
+<p>
+    You can search STRING by single protein name, multiple names or by amino acid sequence (in any format).
+    There are also example inputs and a random input generator which will randomly select a protein with at least
+    4 predicted links at medium confidence or better. There is a organism entry to see if your species of interest
+    is available. There is the possibility to search by protein family rather than a protein in a single organism,
+    by searching the COGs (clusters of orthologous groups). Commonly, you enter your protein of interest by supplying
+    its name or identifier. The organism can be selected by clicking on the arrow or directly typing the name inside
+    the relative input field (an autocompletion mechanism will appear to help you). General names that group more than
+    one organism (e.g. "Mammals", "Chordata") can also be used.
+
+</p>
+
+</div>
+
+{% endblock %}

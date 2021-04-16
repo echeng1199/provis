@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<nav id = "nav2">
+  <ul>
+    <li><a href="{{ url_for('help.about') }}">About</a></li>
+    <li><a href="{{ url_for('help.starting') }}">Getting started</a></li>
+    <li><a href="{{ url_for('help.uploading') }}">Uploading data</a></li>
+    <li><a href="{{ url_for('help.searching') }}">Search function</a></li>
+    <li><a href="{{ url_for('help.faq') }}">FAQ</a></li>
+    <li><a href="{{ url_for('help.api') }}">API</a></li>
+  </ul>
+</nav>
+
+{% endblock %}
+
